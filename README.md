@@ -1,6 +1,6 @@
 # 🚀 React Dependency Upgrade Assistant
 
-[![Build Status](https://img.shields.io/github/actions/workflow/status/YOUR_USER/YOUR_REPO/main.yml?branch=main)](https://github.com/YOUR_USER/YOUR_REPO/actions)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/pavankumar19992208/react_upgrade_agent/main.yml?branch=main)](https://github.com/pavankumar19992208/react_upgrade_agent/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](/LICENSE)
 
 Welcome to the AI‑Powered React Dependency Upgrade Assistant: automate detection of outdated/deprecated packages and generate code-level refactor suggestions using Gemini 2.5 Pro.
