@@ -1,105 +1,138 @@
 # 🚀 React Dependency Upgrade Assistant
 
-A powerful full-stack tool to automate React project dependency upgrades, powered by Gemin 2.5 Pro!
+[![Build Status](https://img.shields.io/github/actions/workflow/status/YOUR_USER/YOUR_REPO/main.yml?branch=main)](https://github.com/YOUR_USER/YOUR_REPO/actions)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](/LICENSE)
+
+Welcome to the AI‑Powered React Dependency Upgrade Assistant: automate detection of outdated/deprecated packages and generate code-level refactor suggestions using Gemini 2.5 Pro.
 
 ---
 
-## ✨ Features
+## 📸 Demo Screenshot
 
-- 📦 **Upload a zipped React project** (without `node_modules`)
-- 🔍 **Detect outdated & deprecated npm packages**
-- ⚠️ **Prioritize updates** (High / Medium / Low)
-- 🤖 **Gemini 2.5 Pro refactor suggestions** for code improvements
-- 📝 **Logs each step** (JSON) for transparency & auditing
-- ⚙️ **Ready for testing** and final review
 
----
+::contentReference[oaicite:0]{index=0}
 
-## 🧩 Technology Stack
 
-- **Frontend**: React + Vite, file upload, JSZip parsing
-- **Backend**: Python + FastAPI
-- **LLM**: Gemini 2.5 Pro via Google Vertex AI
-- **Storage**: Local JSON logs (`./logs/exec-<executionId>.json`)
+*(Above: Upload a React project ZIP, check logs, and view status)*
 
 ---
 
-## 📦 Getting Started
+## 🛠️ Features
 
-### 1. Clone & Install
+- Zip upload of React project (excludes `node_modules`)
+- Detect outdated & deprecated npm packages
+- Prioritize updates: **High**, **Medium**, **Low**
+- Generate refactor suggestions via **Gemini 2.5 Pro**
+- Log every step in local JSON files (`./logs/exec-<id>.json`)
+- Build-ready for test execution and audit
+
+---
+
+## 🧩 Tech Stack
+
+| Component     | Technology          |
+|---------------|---------------------|
+| Frontend      | React + Vite        |
+| Backend       | FastAPI (Python)    |
+| LLM           | Gemini 2.5 Pro via Vertex AI |
+| Logs Storage  | JSON files locally  |
+
+---
+
+## 📦 Setup
+
+### 1. Clone the repo  
 ```bash
-git clone <your‑repo‑url>
-cd react-upgrade-agent
-Frontend Setup
+git clone https://github.com/YOUR_USER/YOUR_REPO.git
+2. Frontend
 bash
 Copy
 Edit
 cd frontend
 npm install
 npm run dev
-Backend Setup
+3. Backend
 bash
 Copy
 Edit
 cd backend
 pip install -r requirements.txt
-export GEMINI_API_KEY=<your_key>
-uvicorn main:app --reload
+export GEMINI_API_KEY=your_key_here
+uvicorn main:app --reload --port 8000
 🚀 Usage
-Zip your React project (exclude node_modules)
+Zip your React project (excluding node_modules)
 
-Upload via frontend UI
+Upload via frontend UI, which sends { executionId, dependencies }
 
-Frontend sends { executionId, dependencies } to backend
+Backend logs payload, checks npm, calls Gemini, and saves suggestions
 
-Backend logs steps, checks npm, and calls Gemini for refactor suggestions
+Logs available in ./logs/exec-<executionId>.json
 
-Logs saved as ./logs/exec-<executionId>.json
+🧠 How It Works
+Uses npm registry to fetch latest versions and deprecation metadata
 
-🧠 Tech Details
-Uses npmjs.org registry to fetch latest version & deprecation info
+Assigns priority:
 
-Prioritizes updates:
+High = deprecated dependencies
 
-High = deprecated packages
-
-Medium = major version gap
+Medium = major version updates
 
 Low = minor/patch updates
 
-Builds a prompt listing outdated dependencies
+Gemini prompt:
 
-Gemini returns code-level refactor suggestions added to logs
+yaml
+Copy
+Edit
+Outdated dependencies:
+- pkg1: current → latest
+- pkg2: current → latest
+Please suggest code-level refactor advice.
+Logs generated suggestions under "step": "Gemini suggestion"
 
-🔭 Roadmap
- Run tests (Vitest, Jest) and log results
+📈 Next Steps
+Run tests (Vitest/Jest), capture results
 
- Frontend log polling & live UI
+Frontend polling for real-time logs display
 
- Optional logs download/archive
+Downloadable logs archive
 
- LLM-powered auto-pull-requests via GitHub API
+GitHub auto pull requests via LLM
 
-💡 Why This?
-Maintaining React projects can be time-consuming and error-prone. This tool automates detection, prioritization, and code guidance—helping you confidently update your dependencies with AI-powered insights.
+🔧 Frontend Structure
+Add a dedicated frontend/README.md for details:
 
-🚧 Contributions & Feedback
-PRs and feature ideas are welcome!
-Found a bug or want support? Create an issue.
+markdown
+Copy
+Edit
+# Frontend
 
-🔒 License
-Distributed under the MIT License. See LICENSE for details.
+## Features
+- Upload .zip file (React project)
+- Extract dependencies via JSZip
+- Generate UUID as executionId
+
+## Usage
+```bash
+npm install
+npm run dev
+Go to http://localhost:3000 and upload your .zip file!
 
 yaml
 Copy
 Edit
 
+*(This should live inside your `frontend/` folder.)*
+
 ---
 
-### ✅ Tips:
-- Replace `<your‑repo‑url>` with your actual GitHub link.
-- Add a `requirements.txt` and `frontend/README.md` as needed.
-- Consider adding badges (CI build, license, code coverage) to enhance readability.
+## 📄 License
 
-Let me know if you'd like help adding visuals, CI integration, or live log preview instructions!
-::contentReference[oaicite:0]{index=0}
+MIT © [Your Name]
+
+---
+
+### ❤️ Contribute
+
+PRs, feature suggestions, or questions are welcome!
+::contentReference[oaicite:1]{index=1}
