@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
-from typing import List, Literal, Optional
+from typing import List, Literal
 from fastapi.middleware.cors import CORSMiddleware
 import os, json
 from datetime import datetime
@@ -36,9 +36,7 @@ def get_latest_version(pkg_name: str) -> str:
     resp.raise_for_status()
     return resp.json()["version"]
 
-def get_priority(current: str, latest: str,deprecated_msg: Optional[str]) -> str:
-    if deprecated_msg:
-        return "Must have"
+def get_priority(current: str, latest: str) -> str:
     try:
         cur = [int(x) for x in current.lstrip("^~").split(".")]
         lat = [int(x) for x in latest.lstrip("^~").split(".")]

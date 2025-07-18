@@ -1,0 +1,12 @@
+# Node.js (frontend)
+node_modules/
+upgrade-agent/upgrade-agent/node_modules/
+
+# Python (backend)
+__pycache__/
+upgrade-agent/backend/__pycache__/
+*.pyc
+
+# OS files
+.DS_Store
+Thumbs.db
