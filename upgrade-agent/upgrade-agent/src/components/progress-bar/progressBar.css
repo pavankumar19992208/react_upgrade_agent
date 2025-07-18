@@ -1,0 +1,32 @@
+/* components/ProgressLoader.css */
+.progress-loader-container {
+    width: 100%;
+    /* margin-top: 1rem; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    left: 0;
+}
+
+.progress-loader {
+  width: 50%;
+  height: 1.2rem;
+  background-color: #5A5A5A;
+  border-radius: 90px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+background: linear-gradient(90deg, #56D6E2, #ECE630, #B54C4C, #53B54C);
+  border-radius: 90px;
+  transition: width 0.3s ease;
+}
+
+.progress-text {
+  margin-top: 0.5rem;
+  color: #fff;
+  font-family: poppins, sans-serif;
+  font-size: 0.9rem;
+}

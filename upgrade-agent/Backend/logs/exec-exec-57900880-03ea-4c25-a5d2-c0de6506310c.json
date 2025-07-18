@@ -1,0 +1,128 @@
+[
+  {
+    "step": "Received payload",
+    "executionId": "exec-57900880-03ea-4c25-a5d2-c0de6506310c",
+    "timestamp": "2025-07-17T01:28:38.034915Z",
+    "dependenciesCount": 20
+  },
+  {
+    "step": "Error checking npm",
+    "name": "@appium/support",
+    "error": "get_priority() missing 1 required positional argument: 'deprecated_msg'",
+    "timestamp": "2025-07-17T01:28:38.548255Z"
+  },
+  {
+    "step": "Error checking npm",
+    "name": "@appium/types",
+    "error": "get_priority() missing 1 required positional argument: 'deprecated_msg'",
+    "timestamp": "2025-07-17T01:28:38.986749Z"
+  },
+  {
+    "step": "Error checking npm",
+    "name": "@colors/colors",
+    "error": "get_priority() missing 1 required positional argument: 'deprecated_msg'",
+    "timestamp": "2025-07-17T01:28:39.381813Z"
+  },
+  {
+    "step": "Error checking npm",
+    "name": "async-lock",
+    "error": "get_priority() missing 1 required positional argument: 'deprecated_msg'",
+    "timestamp": "2025-07-17T01:28:39.785202Z"
+  },
+  {
+    "step": "Error checking npm",
+    "name": "asyncbox",
+    "error": "get_priority() missing 1 required positional argument: 'deprecated_msg'",
+    "timestamp": "2025-07-17T01:28:40.222596Z"
+  },
+  {
+    "step": "Error checking npm",
+    "name": "axios",
+    "error": "get_priority() missing 1 required positional argument: 'deprecated_msg'",
+    "timestamp": "2025-07-17T01:28:40.651835Z"
+  },
+  {
+    "step": "Error checking npm",
+    "name": "bluebird",
+    "error": "get_priority() missing 1 required positional argument: 'deprecated_msg'",
+    "timestamp": "2025-07-17T01:28:41.018535Z"
+  },
+  {
+    "step": "Error checking npm",
+    "name": "body-parser",
+    "error": "get_priority() missing 1 required positional argument: 'deprecated_msg'",
+    "timestamp": "2025-07-17T01:28:41.414606Z"
+  },
+  {
+    "step": "Error checking npm",
+    "name": "express",
+    "error": "get_priority() missing 1 required positional argument: 'deprecated_msg'",
+    "timestamp": "2025-07-17T01:28:41.803782Z"
+  },
+  {
+    "step": "Error checking npm",
+    "name": "fastest-levenshtein",
+    "error": "get_priority() missing 1 required positional argument: 'deprecated_msg'",
+    "timestamp": "2025-07-17T01:28:42.151202Z"
+  },
+  {
+    "step": "Error checking npm",
+    "name": "http-status-codes",
+    "error": "get_priority() missing 1 required positional argument: 'deprecated_msg'",
+    "timestamp": "2025-07-17T01:28:42.605171Z"
+  },
+  {
+    "step": "Error checking npm",
+    "name": "lodash",
+    "error": "get_priority() missing 1 required positional argument: 'deprecated_msg'",
+    "timestamp": "2025-07-17T01:28:42.980290Z"
+  },
+  {
+    "step": "Error checking npm",
+    "name": "lru-cache",
+    "error": "get_priority() missing 1 required positional argument: 'deprecated_msg'",
+    "timestamp": "2025-07-17T01:28:43.474108Z"
+  },
+  {
+    "step": "Error checking npm",
+    "name": "method-override",
+    "error": "get_priority() missing 1 required positional argument: 'deprecated_msg'",
+    "timestamp": "2025-07-17T01:28:43.817977Z"
+  },
+  {
+    "step": "Error checking npm",
+    "name": "morgan",
+    "error": "get_priority() missing 1 required positional argument: 'deprecated_msg'",
+    "timestamp": "2025-07-17T01:28:44.266635Z"
+  },
+  {
+    "step": "Error checking npm",
+    "name": "path-to-regexp",
+    "error": "get_priority() missing 1 required positional argument: 'deprecated_msg'",
+    "timestamp": "2025-07-17T01:28:44.618728Z"
+  },
+  {
+    "step": "Error checking npm",
+    "name": "serve-favicon",
+    "error": "get_priority() missing 1 required positional argument: 'deprecated_msg'",
+    "timestamp": "2025-07-17T01:28:45.030341Z"
+  },
+  {
+    "step": "Error checking npm",
+    "name": "source-map-support",
+    "error": "get_priority() missing 1 required positional argument: 'deprecated_msg'",
+    "timestamp": "2025-07-17T01:28:45.425353Z"
+  },
+  {
+    "step": "Error checking npm",
+    "name": "type-fest",
+    "error": "get_priority() missing 1 required positional argument: 'deprecated_msg'",
+    "timestamp": "2025-07-17T01:28:45.784070Z"
+  },
+  {
+    "step": "Error checking npm",
+    "name": "validate.js",
+    "error": "get_priority() missing 1 required positional argument: 'deprecated_msg'",
+    "timestamp": "2025-07-17T01:28:46.151997Z"
+  }
+]
