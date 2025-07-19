@@ -309,3 +309,96 @@
     white-space: pre-wrap;
     font-size: small;
 }
+/* Accordion Steps Styles */
+.steps-accordion {
+    margin-top: 20px;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.step-container {
+    border-bottom: 1px solid #2d3748;
+}
+
+.step-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    background-color: #2d3748;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.step-header:hover {
+    background-color: #3c4658;
+}
+
+.step-title {
+    flex: 1;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+}
+
+.step-status {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    margin-right: 10px;
+    text-align: center;
+    line-height: 18px;
+    font-size: 12px;
+}
+
+.step-status.completed {
+    background-color: #48bb78;
+    color: white;
+}
+
+.step-status.skipped {
+    background-color: #a0aec0;
+    color: white;
+}
+
+.step-status.pending {
+    background-color: #ed8936;
+    color: white;
+}
+
+.step-details {
+    font-size: 12px;
+    color: #a0aec0;
+    margin-right: 15px;
+}
+
+.step-toggle {
+    font-weight: bold;
+    width: 20px;
+    text-align: center;
+}
+
+.step-content {
+    background-color: #1a202c;
+    padding: 10px 15px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.step-logs {
+    font-family: monospace;
+    font-size: 13px;
+    color: #cbd5e0;
+}
+
+.step-log-line {
+    margin: 3px 0;
+    display: flex;
+}
+
+.step-log-line .log-prefix {
+    color: #718096;
+    margin-right: 5px;
+}
+
