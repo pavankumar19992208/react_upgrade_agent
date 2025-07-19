@@ -1,6 +1,7 @@
 import './logs.css';
 import React, { useState, useEffect, useRef } from 'react';
 import githubImg from '../../assets/github.png';
+import Accordion from '../accordion/accordion.jsx'; // Import the Accordion component
 
 export default function Logspage() {
     const [repoData, setRepoData] = useState(null);
@@ -8,6 +9,9 @@ export default function Logspage() {
     const [logs, setLogs] = useState([]);
     const [status, setStatus] = useState('Pending'); // FIX: Added missing status state
     const ws = useRef(null);
+    const [phaseLogs, setPhaseLogs] = useState({}); // { phase: [log, ...] }
+    const [phaseDurations, setPhaseDurations] = useState({});
+    const [phaseStatus, setPhaseStatus] = useState({});
 
     // Effect to clean up WebSocket on component unmount
     useEffect(() => {
@@ -28,6 +32,8 @@ export default function Logspage() {
         setLogs([]);
         setRepoData(null);
         setStatus('Analyzing');
+        setPhaseLogs({});
+        setPhaseDurations({});
 
         // Use 'ws://' for local development
         ws.current = new WebSocket("ws://localhost:8000/ws/analyze-repo");
@@ -40,9 +46,24 @@ export default function Logspage() {
         ws.current.onmessage = (event) => {
             const message = JSON.parse(event.data);
 
+            if (message.type === 'log' || message.type === 'error') {
+                const phase = message.phase || 'General';
+                setPhaseLogs(prev => ({
+                    ...prev,
+                    [phase]: [...(prev[phase] || []), message.message]
+                }));
+            }
+
             switch (message.type) {
                 case 'log':
                     setLogs(prev => [...prev, message.message]);
+                    // Mark phase as running
+            if (message.phase) {
+                setPhaseStatus(prev => ({
+                    ...prev,
+                    [message.phase]: 'running'
+                }));
+            }
                     break;
                 case 'error':
                     setLogs(prev => [...prev, `[ERROR] ${message.message}`]);
@@ -59,6 +80,16 @@ export default function Logspage() {
                         ...prev,
                         deprecated: [...(prev?.deprecated || []), message.data]
                     }));
+                    break;
+                case 'phase_complete': // <-- ADD THIS CASE
+                    setPhaseDurations(prev => ({
+                        ...prev,
+                        [message.phase]: message.duration
+                    }));
+                                setPhaseStatus(prev => ({
+                ...prev,
+                [message.phase]: 'done'
+            }));
                     break;
                 case 'status':
                     if (message.message === 'complete') {
@@ -100,6 +131,30 @@ export default function Logspage() {
             setLogs(prev => [...prev, "Connection established. Sending repo URL..."]);
             ws.current.send(JSON.stringify({ url: repoUrl }));
         };
+    };
+
+    const renderAccordionLogs = () => {
+        const phases = Object.keys(phaseLogs);
+        if (phases.length === 0) return null;
+return (
+    <div className="logs-accordion">
+        {phases.map(phase => (
+            <Accordion
+                key={phase}
+                title={phase}
+                duration={phaseDurations[phase]}
+                status={phaseStatus[phase] || 'pending'}
+            >
+                {phaseLogs[phase].map((log, idx) => (
+                    <div key={idx} className="log-line">
+                        <span className="log-prefix">{'- '}</span>
+                        <span className="log-message">{log}</span>
+                    </div>
+                ))}
+            </Accordion>
+        ))}
+    </div>
+);
     };
 
     // Helper function to render log output
@@ -216,7 +271,8 @@ export default function Logspage() {
                         <div style={{ color: 'white', fontWeight: 600, padding: '10px' }}>
                             Live Analysis Logs
                         </div>
-                        {renderLogOutput()}
+                        {/* {renderLogOutput()} */}
+                        {renderAccordionLogs()}
                     </div>
                 </div>
 

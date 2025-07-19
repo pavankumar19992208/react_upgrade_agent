@@ -1,10 +1,11 @@
 .logs-page{
     height: 100vh;
     overflow: hidden;
+
 }
 .logs-header {
     padding: 0.2rem 1rem;
-    background-color: #242424;
+    background-color: #010409;
     /* border-radius: 8px; */
     text-align: left;
     color: white;
@@ -32,12 +33,14 @@
 }
 
 .logs-grid-item-3 {
-    background: #373737;
+    /* background: #373737; */
     padding: 14px;
-    border-radius: 8px;
+    /* border-radius: 8px; */
     text-align: center;
-    border-radius: 12px;
+    /* border-radius: 12px; */
     overflow: auto;
+        border-left: #656c76 0.8px solid;
+
 }
 
 .add-folder-button {
@@ -189,7 +192,7 @@
 
 .logs-status,
 .logs-duration {
-    font-size: 1rem;
+    font-size: 0.8rem;
     color: #bbb;
 }
 
@@ -203,12 +206,12 @@
 .logs-container {
     font-family: poppins, sans-serif;
     color: #fff;
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: 700;
     text-align: left;
     overflow-y: auto;
     border-radius: 8px;
-    /* height: 100%; */
+    height: 100%;
     padding: 0.6rem;
     border: #656c76 0.8px solid;
     /* background: #373737; */
@@ -401,4 +404,10 @@
     color: #718096;
     margin-right: 5px;
 }
-
+.logs-accordion{
+    background-color: #010409;
+    padding: 8px;
+    overflow: auto;
+    height: 450px;
+    border-radius: 8px;
+}

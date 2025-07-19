@@ -1,0 +1,44 @@
+/* accordion.css */
+.accordion-title {
+    display: flex;
+    justify-content: space-between; /* Pushes title and duration to opposite ends */
+    align-items: center;
+    cursor: pointer;
+    padding: 8px 10px;
+    font-family: monospace;
+    font-size: 12px;
+}
+
+.accordion-title:hover {
+    background-color: #3c3f4a;
+}
+
+.title-text {
+    font-weight: 600;
+}
+
+.accordion-duration {
+    font-size: 12px;
+    font-style: italic;
+    color: #888;
+}
+
+.accordion-content {
+    padding-left: 20px;
+    /* background-color: #1e1f24; */
+}
+
+.spinner {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border: 2px solid #ccc;
+    border-top: 2px solid #007acc;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    vertical-align: middle;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg);}
+    100% { transform: rotate(360deg);}
+}

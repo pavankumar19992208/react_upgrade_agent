@@ -1,6 +1,7 @@
 from fastapi import FastAPI, HTTPException, WebSocket, WebSocketDisconnect
 from pydantic import BaseModel
 from typing import Dict, List, Literal, Optional
+import time
 
 from fastapi.middleware.cors import CORSMiddleware
 import os, json, requests, base64, re, sys, shutil, tempfile, subprocess, asyncio
@@ -231,7 +232,14 @@ async def check_single_package(request: PackageAnalysisRequest):
 @app.websocket("/ws/analyze-repo")
 async def analyze_repo_ws(websocket: WebSocket):
     await websocket.accept()
+
+    # Define a variable to hold the start time of the current phase
+    phase_start_time = time.time()
+
     try:
+        # --- Establishing phase ---
+        await websocket.send_json({"type": "log", "phase": "Establishing", "message": "Connection established."})
+
         data = await websocket.receive_json()
         repo_url = data.get("url")
         branch = data.get("branch", "main")
@@ -262,7 +270,19 @@ async def analyze_repo_ws(websocket: WebSocket):
         if os.path.exists(repo_path):
             shutil.rmtree(repo_path)
 
-        await websocket.send_json({"type": "log", "message": f"Cloning repository into {repo_path}..."})
+        await websocket.send_json({"type": "repo_info", "data": {"name": f"{owner}/{repo_name}", "branch": branch}})
+        
+        # --- End of Establishing phase, send duration ---
+        duration = time.time() - phase_start_time
+        await websocket.send_json({"type": "phase_complete", "phase": "Establishing", "duration": duration})
+        phase_start_time = time.time() # Reset timer for the next phase
+
+        # --- Cloning phase ---
+        owner, repo_name = repo_match.groups()
+        await websocket.send_json({"type": "repo_info", "data": {"name": f"{owner}/{repo_name}", "branch": branch}})
+        await websocket.send_json({"type": "log", "phase": "Cloning", "message": f"Cloning repository..."})
+        
+        # ... (logic to create repo_path and clone) ...
         clone_cmd = ['git', 'clone', '--depth', '1', '--branch', branch, repo_url, repo_path]
         result = await run_in_thread(clone_cmd, capture_output=True, text=True)
 
@@ -271,7 +291,14 @@ async def analyze_repo_ws(websocket: WebSocket):
             return
 
         await websocket.send_json({"type": "log", "message": "Repository cloned successfully."})
-        await websocket.send_json({"type": "log", "message": "Searching for package.json..."})
+        # await websocket.send_json({"type": "log", "message": "Searching for package.json..."})
+        # --- End of Cloning phase, send duration ---
+        duration = time.time() - phase_start_time
+        await websocket.send_json({"type": "phase_complete", "phase": "Cloning", "duration": duration})
+        phase_start_time = time.time() # Reset timer for the next phase
+
+        # --- Analyzing phase ---
+        await websocket.send_json({"type": "log", "phase": "Analyzing", "message": "Searching for package.json..."})
 
         package_json_path = find_package_json(repo_path)
         if not package_json_path:
@@ -280,11 +307,16 @@ async def analyze_repo_ws(websocket: WebSocket):
 
         await websocket.send_json({"type": "log", "message": f"Found package.json at: {os.path.relpath(package_json_path, repo_path)}"})
 
+        await websocket.send_json({"type": "log", "phase": "Analyzing", "message": "Analyzing packages for deprecations..."})
+
         with open(package_json_path) as f:
             package_data = json.load(f)
 
         await websocket.send_json({"type": "package_json", "data": package_data})
         await check_deprecated_packages(package_data, websocket)
+         # --- End of Analyzing phase, send duration ---
+        duration = time.time() - phase_start_time
+        await websocket.send_json({"type": "phase_complete", "phase": "Analyzing", "duration": duration})
         await websocket.send_json({"type": "status", "message": "complete", "details": "Analysis complete."})
 
     except json.JSONDecodeError:
@@ -315,14 +347,14 @@ async def check_deprecated_packages(package_data: Dict, websocket: WebSocket) ->
     }
 
     total_deps = len(dependencies)
-    await websocket.send_json({"type": "log", "message": f"Found {total_deps} dependencies to analyze."})
+    await websocket.send_json({"type": "log", "phase": "Analyzing", "message": f"Found {total_deps} dependencies to analyze."})
 
     for i, (pkg, version_spec) in enumerate(dependencies.items()):
         try:
             progress = int(((i + 1) / total_deps) * 100)
-            await websocket.send_json({"type": "log", "message": f"({i+1}/{total_deps}) Checking '{pkg}'..."})
-            await websocket.send_json({"type": "progress", "value": progress})
-
+            await websocket.send_json({"type": "log", "phase": "Analyzing", "message": f"({i+1}/{total_deps}) Checking '{pkg}'..."})
+            await websocket.send_json({"type": "progress", "phase": "Analyzing", "value": progress})
+            
             res = requests.get(f"https://registry.npmjs.org/{pkg}", timeout=5)
             if res.status_code == 200:
                 pkg_info = res.json()
